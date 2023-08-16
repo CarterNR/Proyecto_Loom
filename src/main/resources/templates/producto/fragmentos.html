@@ -38,7 +38,7 @@
                         </div> 
                         <form th:action="@{/producto/guardar}" th:object="${producto}"
                               method="POST" class="was-validated" enctype="multipart/form-data">
-                            <input type="hidden" name=""nuevaImagen" value="NO"/> 
+                            <input type="hidden" name="nuevaImagen" value="NO"/> 
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="idCategoria">[[#{producto.categoria}]]</label>
@@ -110,7 +110,7 @@
                                             <td class="text-center">[[${producto.descripcion}]]</td>
                                             <td class="text-center">[[${#numbers.formatDecimal(producto.precio, 1, 'DEFAULT', 2, 'DEFAULT')}]]</td>
                                             <td class="text-center">[[${producto.existencias}]]</td>
-                                            <td class="text-center">[[${#numbers.formatDecimal(producto.precio*producto.existencia, 1, 'DEFAULT', 2, 'DEFAULT')}]]</td>
+                                            <td class="text-center">[[${#numbers.formatDecimal(producto.precio*producto.existencias, 1, 'DEFAULT', 2, 'DEFAULT')}]]</td>
                                             <td class="text-center" th:text="${producto.activo} ? 'Activa' : 'Inactiva'"/>
                                             <td>[[${producto.categoria.descripcion}]]</td>
                                             <td sec:autorizar="hasRole('ROLE_ADMIN')">

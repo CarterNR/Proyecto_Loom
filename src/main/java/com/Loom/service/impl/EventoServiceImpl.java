@@ -21,7 +21,7 @@ public class EventoServiceImpl implements EventoService {
 // Método para obtener la lista de eventos
     @Override
     @Transactional(readOnly = true)
-    public List<Evento> getEventos(Evento evento) {
+    public List<Evento> getEventos() {
         var lista = eventoDao.findAll();
         return lista; // Devuelve la lista resultante
     }

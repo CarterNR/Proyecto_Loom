@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class EventoController {
     @Autowired
     EventoService eventoService;
-
-
+    
     @GetMapping("/evento/listado")
     public String inicio(Model model) {
+        var eventos = eventoService.getEventos();
+        model.addAttribute("eventos", eventos);
         // Obtiene la lista de eventos y la agrega al modelo para la vista
         return "/evento/listado"; // Devuelve la vista de listado de eventos
     }

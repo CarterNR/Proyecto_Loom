@@ -117,13 +117,13 @@ public class ItemServiceImpl implements ItemService {
             return;
         }
 
-        Usuario uuario = uuarioService.getUsuarioPorUsername(username);
+        Usuario usario = uuarioService.getUsuarioPorUsername(username);
 
-        if (uuario == null) {
+        if (usario == null) {
             return;
         }
 
-        Factura factura = new Factura(uuario.getIdUsuario());
+        Factura factura = new Factura(usario.getIdUsuario());
         factura = facturaDao.save(factura);
 
         double total = 0;

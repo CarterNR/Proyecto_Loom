@@ -113,9 +113,12 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests((request) -> request // Configura quiénes pueden acceder a diferentes partes del proyecto
                 .requestMatchers("/", "/index", "/errores/**",
                         "/carrito/**", "/pruebas/**", "/reportes/**",
-                        "/registro/**", "/js/**", "/webjars/**")
+                        "/registro/**", "/js/**", "/webjars/**",
+                        "/categoria/listado",
+                        "/evento/listado")
                         .permitAll()
                 .requestMatchers(
+                        "/evento/listado",
                         "/producto/nuevo", "/producto/guardar",
                         "/producto/modificar/**", "/producto/eliminar/**",
                         "/categoria/nuevo", "/categoria/guardar",
@@ -129,7 +132,8 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/categoria/listado",
                         "/usuario/listado"
                 ).hasAnyRole("ADMIN", "VENDEDOR")
-                .requestMatchers("/facturar/carrito")
+                .requestMatchers("/facturar/carrito",
+                        "/producto/listado")
                 .hasRole("USER")
                 )
                 .formLogin((form) -> form // Configura cómo se ve y funciona la página de inicio de sesión

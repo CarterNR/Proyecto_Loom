@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface EventoService {
     // Obtiene una lista de eventos con opción de filtrar por activos
-    public List<Evento> getEventos(Evento evento);
+    public List<Evento> getEventos();
     
      // Obtiene un evento a partir de su objeto evento
     public Evento getEvento(Evento evento);
