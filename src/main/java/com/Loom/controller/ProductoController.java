@@ -51,7 +51,7 @@ public class ProductoController {
         model.addAttribute("categorias", categorias);
         producto = productoService.getProducto(producto);
         model.addAttribute("producto", producto);
-        return "/producto/modificar";// Devuelve la vista de formulario de modificación
+        return "/producto/modifica";// Devuelve la vista de formulario de modificación
 
     }
 
