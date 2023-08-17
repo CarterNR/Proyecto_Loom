@@ -31,6 +31,7 @@ public class Evento implements Serializable{
     private Date fecha;
     private String lugar;
     private String descripcion;
+    private String rutaImagen;
     
     
     

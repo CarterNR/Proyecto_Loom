@@ -43,8 +43,8 @@
                                 <div class="mb-3">
                                     <label for="idCategoria">[[#{producto.categoria}]]</label>
                                     <select name="categoria.idCategoria" class="from-select" aria-label="Default select example">
-                                        <option th:each="c : ${categorias}" th:value="${c.idCategoria}" th:text="${c.descripcion}">
-                                        </option> 
+                                        <option th:each="categoria : ${categorias}"
+                                                th:value="${categoria.idCategoria}">[[${categoria.descripcion}]]</option>  
                                     </select> 
                                     <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de categoria -->
                                 </div>
@@ -83,6 +83,94 @@
             </div>
         </section>
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!--<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/plantilla :: head}"></head>
+
+<body>
+<header th:replace="~{layout/plantilla :: header}"></header>
+<seccion class="container">
+<a th:href="@{/adopcion/nuevo}"><button   class="btn btn-success">Agregar</button></a>
+</seccion>
+<section class="container" style="margin-top: 20px;">
+<div class="row" >
+<div class="lg-col-9" >
+<h3 class="text-center">[[#{plantilla.ListaAdopcion}]]:</h3>
+
+<div th:if="${adopcion ==null or adopcion.empty}">
+<p>NO EXISTEN DATOS PARA MOSTRAR</p>
+</div>
+<div class="row row-cols-3" th:if="${adopcion!=null and !adopcion.empty}">
+<div class="card" th:each="adopcion : ${adopcion}">
+
+<div class="card-body" >
+
+<!--<h4 class="card-subtitle mb-2 text-muted text-end">Id</h4>
+<h5 class="card-title">[[#{plantilla.DescripcionAnimal}]]:</h5>
+<h6 class="card-text">[[#{plantilla.Animal}]]:</h6>
+<h7 class="card-text">[[#{plantilla.Motivo}]]:</h7>
+
+<h4  class="card-subtitle mb-2 text-muted text-end">[[${adopcion.id_Adopcion}]]</h4>
+<h5 class="card-title"> [[${adopcion.descripcion}]]</h5>
+<h6 class="card-text">[[${adopcion.animal}]]</h6>
+<h7 class="card-text">[[${adopcion.motivo}]]</h7>
+<br/>
+<figure>
+<br/>
+<figcaption>
+<img th:src="${adopcion.rutaImagen}" height="150"/>
+</figcaption>
+<br/>
+<br/>
+<a th:href="@{/adopcion/editar/}+${adopcion.id_Adopcion}" ><button  class="btn btn-warning">Editar</button></a>
+<br/>
+<br/>
+<a th:href="@{/adopcion/eliminar/}+${adopcion.id_Adopcion}"><button   class="btn btn-danger">Eliminar</button></a>
+
+</figure>
+
+
+</div>
+</div>
+</div>
+</section>
+</body>
+</html>-->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <!-- 3 Sección principal para mostrar la informaccion de la entidad producto -->
         <section th:fragment="listadoProductos" id="productos">
             <div class="container">

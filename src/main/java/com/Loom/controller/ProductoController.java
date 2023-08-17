@@ -47,6 +47,8 @@ public class ProductoController {
     @GetMapping("/producto/modificar/{idProducto}")
     public String modificarProducto(Producto producto, Model model) {
 // Obtiene un producto y lo agrega al modelo para el formulario de modificación
+        var categorias = categoriaService.getCategorias(false);
+        model.addAttribute("categorias", categorias);
         producto = productoService.getProducto(producto);
         model.addAttribute("producto", producto);
         return "/producto/modificar";// Devuelve la vista de formulario de modificación
