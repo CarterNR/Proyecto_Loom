@@ -4,14 +4,13 @@
  */
 package com.Loom.service.impl;
 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import com.Loom.dao.ResenaDao;
 import com.Loom.domain.Resena;
 import com.Loom.service.ResenaService;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 public class ResenaServiceImpl implements ResenaService {
@@ -21,7 +20,7 @@ public class ResenaServiceImpl implements ResenaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Resena> getResenas() {
+    public List<Resena> getResenas(boolean activos) {
         var lista = resenaDao.findAll();
         return lista;
     }
@@ -43,16 +42,4 @@ public class ResenaServiceImpl implements ResenaService {
     public void delete(Resena resena) {
         resenaDao.delete(resena);
     }
-/*
-    @Override
-    @Transactional(readOnly = true)
-    public List<Resena> metodoJPQL(int calificacionInf, int calificacionSup) {
-        return resenaDao.metodoJPQL(calificacionInf, calificacionSup);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Resena> metodoNativo(int calificacionInf, int calificacionSup) {
-        return resenaDao.metodoNativo(calificacionInf, calificacionSup);
-    }*/
 }

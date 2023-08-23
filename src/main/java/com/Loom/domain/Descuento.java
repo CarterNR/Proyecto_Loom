@@ -4,7 +4,6 @@
  */
 package com.Loom.domain;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,31 +11,33 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
 import lombok.Data;
+
 
 @Data
 @Entity
-@Table(name="factura")
-public class Factura implements Serializable {    
+@Table(name="descuento")
+public class Descuento implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_factura")
-    private Long idFactura;
-    private Long idUsuario;
-    private Date fecha;
-    private double total;
-    private int estado;
+    @Column(name="id_descuento")
+    private Long idDescuento; 
+    private String descuento;
+    private String descripcion;
+    private String fechai;
+    private String fechaf;
     
-    public Factura() {
+    
+    
+    public Descuento(){
     }
-
-    public Factura(Long idUsuario) {
-        this.idUsuario = idUsuario;
-        this.fecha = Calendar.getInstance().getTime();
-        this.estado=1;
-    }    
+    
+    public Descuento(String descuento, String descripcion, String fechai, String fechaf){
+        this.descuento = descuento;
+        this.descripcion = descripcion;
+        this.fechai = fechai;
+        this.fechaf = fechaf;
+    }
 }

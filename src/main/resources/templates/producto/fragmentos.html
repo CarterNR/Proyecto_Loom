@@ -41,11 +41,11 @@
                             <input type="hidden" name="nuevaImagen" value="NO"/> 
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="idCategoria">[[#{producto.categoria}]]</label>
-                                    <select name="categoria.idCategoria" class="from-select" aria-label="Default select example">
-                                        <option th:each="categoria : ${categorias}"
-                                                th:value="${categoria.idCategoria}">[[${categoria.descripcion}]]</option>  
-                                    </select> 
+                                    <label for="idCategoria">[[#{categoria.descripcion}]]</label>
+                                    <select name="categoria.idCategoria" class="form-select" aria-label="Default select example">
+                                        <option th:each="c : ${categorias}" th:value="${c.idCategoria}" th:text="${c.descripcion}"></option> 
+                                    </select>
+
                                     <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de categoria -->
                                 </div>
                                 <div class="mb-3">
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </section>
-       
+
         <!-- 3 Sección principal para mostrar la informaccion de la entidad producto -->
         <section th:fragment="listadoProductos" id="productos">
             <div class="container">
@@ -95,7 +95,7 @@
                                 <table class="table table-striped table-hover fs-6">
                                     <thead class="table-dark">
                                         <tr><th>#</th>
-                                            <!-- se agregaron todas las columnas faltantes de producto-->
+                                            <!--se agregaron todas las columnas faltantes de producto-->
                                             <th class="text-center">[[#{producto.descripcion}]]</th>
                                             <th class="text-center">[[#{producto.precio}]]</th>
                                             <th class="text-center">[[#{producto.existencias}]]</th>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
 
         <!-- 4 Fragmento que se utiliza en la página modifca.html -->

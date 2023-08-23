@@ -4,13 +4,13 @@
  */
 package com.Loom.dao;
 
-import com.Loom.domain.Producto;
+import com.Loom.domain.Descuento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author NIKY
  */
-public interface ProductoDao extends JpaRepository<Producto, Long> {
-
+public interface DescuentoDao extends JpaRepository<Descuento, Long>{
+    
 }

@@ -29,10 +29,6 @@ public class Resena implements Serializable{
     private String comentario;
     
     @ManyToOne
-    @JoinColumn(name="id_usuario")
-    Usuario usuario;// usuario a la que pertenece el resena
-    
-    @ManyToOne
     @JoinColumn(name="id_producto")
     Producto producto;// producto a la que pertenece el resena
     

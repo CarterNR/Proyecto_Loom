@@ -12,11 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -51,14 +48,14 @@ public class ProjectConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registro) {
-         // Agrega el cambio de idioma a la configuración general
+        // Agrega el cambio de idioma a la configuración general
         registro.addInterceptor(localeChangeInterceptor());
     }
 
     // Configuración para manejar mensajes en diferentes idiomas
     @Bean("messageSource")
     public MessageSource messageSource() {
-         // Configura dónde se encuentran los mensajes en diferentes idiomas
+        // Configura dónde se encuentran los mensajes en diferentes idiomas
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasenames("messages");
         messageSource.setDefaultEncoding("UTF-8");
@@ -73,7 +70,7 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
-    
+
     
 
     // Configura detalles de usuarios (aquí usando usuarios en memoria)
@@ -100,12 +97,13 @@ public class ProjectConfig implements WebMvcConfigurer {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
         // Configura cómo se manejan los detalles de inicio de sesión y las contraseñas
         build.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
-    
+
     // Configuración para la seguridad en el proyecto
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -113,13 +111,12 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests((request) -> request // Configura quiénes pueden acceder a diferentes partes del proyecto
                 .requestMatchers("/", "/index", "/errores/**",
                         "/carrito/**", "/pruebas/**", "/reportes/**",
-                        "/registro/**", "/js/**", "/webjars/**",
-                        "/categoria/listado",
-                        "/evento/listado")
-                        .permitAll()
+                        "/registro/**", "/js/**", "/webjars/**"
+                ).permitAll()
                 .requestMatchers(
                         "/evento/listado",
-                        "/producto/nuevo", "/producto/guardar",
+                        "/descuento/listado",
+                        "/producto/nuevo**", "/producto/guardar",
                         "/producto/modificar/**", "/producto/eliminar/**",
                         "/categoria/nuevo", "/categoria/guardar",
                         "/categoria/modificar/**", "/categoria/eliminar/**",
@@ -127,13 +124,14 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/usuario/modificar/**", "/usuario/eliminar/**",
                         "/evento/nuevo", "/evento/guardar",
                         "/evento/modificar/**", "/evento/eliminar/**",
+                        "/descuento/nuevo", "/descuento/guardar",
+                        "/descuento/modificar/**", "/descuento/eliminar/**",
                         "/reportes/**"
                 ).hasRole("ADMIN")
                 .requestMatchers(
                         "/producto/listado",
                         "/categoria/listado",
-                        "/usuario/listado",
-                         "/evento/listado"
+                        "/usuario/listado"
                 ).hasAnyRole("ADMIN", "VENDEDOR")
                 .requestMatchers("/facturar/carrito",
                         "/producto/listado")

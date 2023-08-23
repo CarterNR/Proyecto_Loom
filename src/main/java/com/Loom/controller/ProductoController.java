@@ -32,9 +32,9 @@ public class ProductoController {
     @GetMapping("/producto/nuevo")
     public String nuevoProducto(Producto producto, Model model) {
 // Prepara la vista del formulario para crear un nuevo producto
-        var categorias = categoriaService.getCategorias(true);
+         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
-        return "/producto/modificar";
+        return "/producto/listado";
     }
 
     @PostMapping("/producto/guardar")
@@ -52,7 +52,6 @@ public class ProductoController {
         producto = productoService.getProducto(producto);
         model.addAttribute("producto", producto);
         return "/producto/modifica";// Devuelve la vista de formulario de modificación
-
     }
 
     @GetMapping("/producto/eliminar/{idProducto}")

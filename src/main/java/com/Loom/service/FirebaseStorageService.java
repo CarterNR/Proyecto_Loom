@@ -16,5 +16,5 @@ public interface FirebaseStorageService {
     final String BucketName = "loom-f00c6.appspot.com";
     final String rutaSuperiorStorage = "Loom";
     final String rutaJsonFile = "firebase";
-    final String archivoJsonFile = "loom-f00c6-firebase-adminsdk-iabzp-0fa8d17b75";
+    final String archivoJsonFile = "loom-f00c6-firebase-adminsdk-iabzp-0fa8d17b75.json";
 }

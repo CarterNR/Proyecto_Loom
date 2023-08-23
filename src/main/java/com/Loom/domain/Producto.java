@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.Loom.domain;
 
 import jakarta.persistence.*;
@@ -28,7 +24,7 @@ public class Producto implements Serializable{
     private boolean activo;// Indica si el producto está activo
     
     @ManyToOne
-    @JoinColumn(name="id_categoria")
+    @JoinColumn(name="id_categoria", updatable = false)
     Categoria categoria;// Categoría a la que pertenece el producto
     
     public Producto(){

@@ -68,12 +68,12 @@
                 <div class="row">
                     <div class="col-md-9">
                         <div class="row row-cols-3" 
-                             th:if="${categorias != null and !categorias.empty}" style="left: 50%; transform: translateX(1%)">
-                            <div class="card mx-3 card my-3" th:each="categoria : ${categorias}" style="max-width: 540px; padding: 0">
+                             th:if="${categorias != null and !categorias.empty}" style="left: 50%; transform: translateX(1%);">
+                            <div class="card mx-3 card my-3" th:each="categoria : ${categorias}" style="max-width: 540px; padding: 0;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
                                         <figure style="margin: 0">
-                                            <img th:src="@{${categoria.rutaImagen}}" class="img-fluid rounded-start" alt="..."/>
+                                            <img th:src="@{${categoria.rutaImagen}}" class="img-fluid rounded-start" alt="..." style="height: 150px;"/>
                                         </figure>
                                     </div>
                                     <div class="col-md-8">
@@ -83,105 +83,103 @@
                                             <p class="card-text" th:text="${categoria.activo} ? 'Activa' : 'Inactiva'" />   
 
                                             <td sec:autorizar="hasRole('ROLE_ADMIN')">
-                                                <td>
-                                                    <a th:href="@{/categoria/eliminar/}+${categoria.idCategoria}"
-                                                       class="btn btn-danger">
-                                                        <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                                    <a th:href="@{/categoria/modificar/}+${categoria.idCategoria}"
-                                                       class="btn btn-success">
-                                                        <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a>
-                                                </td>
-                                            <td>
+                                                <div class="btn-group">
+                                                    <a th:href="@{/categoria/eliminar/}+${categoria.idCategoria}" class="btn btn-danger" style="padding: 0.5rem 0.45rem;
+                                                    font-size: 12px; --bs-btn-bg: #4ED1C5; --bs-btn-border-color: #4ED1C5;">
+                                                        <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                                    </a>
+                                                    <a th:href="@{/categoria/modificar/}+${categoria.idCategoria}" class="btn btn-success" style="padding: 0.5rem 0.45rem;
+                                                    font-size: 12px; --bs-btn-bg: #4ED1C5; --bs-btn-border-color: #4ED1C5;">
+                                                        <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                                    </a>
+                                                </div>
+                                            </td>
 
                                         </div>
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+                    </div>                       
+                </div>                                
+            </div>                                
+        </section>
 
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="editarCategoria">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/categoria/guardar}" 
+                          th:object="${categoria}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idCategoria" th:field="*{idCategoria}"/>
+                        <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
+                        <section th:replace="~{categoria/fragmentos :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="descripcion">[[#{categoria.descripcion}]]</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="descripcion" th:field="*{descripcion}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="activo">[[#{categoria.activo}]]</label>
+                                                    <input class="form-check-input" 
+                                                           type="checkbox" 
+                                                           name="activo" 
+                                                           id="activo"
+                                                           th:field="*{activo}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="imagen">[[#{categoria.rutaImagen}]]</label>
+                                                    <input class="form-control" type="file" name="imagenFile"
+                                                           onchange="readURL(this);" />
+                                                    <img id="blah" th:src="@{${categoria.rutaImagen}}" alt="your image" height="200"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
 
-
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                                                    </section>
-
-                                                    <!-- 4 Fragmento que se utiliza en la página modifca.html -->
-                                                    <section th:fragment="editarCategoria">
-                                                        <div class="row">
-                                                            <div class="col-md-2"></div>
-                                                            <div class="col-md-8">
-                                                                <form method="POST"
-                                                                      th:action="@{/categoria/guardar}" 
-                                                                      th:object="${categoria}"
-                                                                      class="was-validated"                          
-                                                                      enctype="multipart/form-data">
-                                                                    <input type="hidden" name="idCategoria" th:field="*{idCategoria}"/>
-                                                                    <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
-                                                                    <section th:replace="~{categoria/fragmentos :: botonesEditar}"/>
-                                                                    <div id=details>
-                                                                        <div class="container">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <div class="card">
-                                                                                        <div class="card-header">
-                                                                                            <h4>[[#{accion.actualizar}]]</h4>
-                                                                                        </div>
-                                                                                        <div class="card-body">
-                                                                                            <div class="mb-3">
-                                                                                                <label for="descripcion">[[#{categoria.descripcion}]]</label>
-                                                                                                <input type="text" class="form-control" 
-                                                                                                       name="descripcion" th:field="*{descripcion}"
-                                                                                                       required="true">
-                                                                                            </div>
-                                                                                            <div class="mb-3">
-                                                                                                <label for="activo">[[#{categoria.activo}]]</label>
-                                                                                                <input class="form-check-input" 
-                                                                                                       type="checkbox" 
-                                                                                                       name="activo" 
-                                                                                                       id="activo"
-                                                                                                       th:field="*{activo}">
-                                                                                            </div>
-                                                                                            <div class="mb-3">
-                                                                                                <label for="imagen">[[#{categoria.rutaImagen}]]</label>
-                                                                                                <input class="form-control" type="file" name="imagenFile"
-                                                                                                       onchange="readURL(this);" />
-                                                                                                <img id="blah" th:src="@{${categoria.rutaImagen}}" alt="your image" height="200"/>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </section>
-
-                                                    <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
-                                                    <section th:fragment="botonesEditar">
-                                                        <div class="container py-4 mb-4 bg-light">
-                                                            <div class="row">
-                                                                <div class="col-md-4 d-grid">
-                                                                    <a th:href="@{/categoria/listado}" class="btn btn-primary">
-                                                                        <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-4 d-grid">                                
-                                                                    <a th:href="@{/categoria/eliminar/}+${categoria.idCategoria}"
-                                                                       class="btn btn-danger">
-                                                                        <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-4 d-grid">
-                                                                    <button type="submit" class="btn btn-success">
-                                                                        <i class="fas fa-check"></i> [[#{accion.guardar}]]
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </section>
-                                                    </body>
-                                                    </html>
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/categoria/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/categoria/eliminar/}+${categoria.idCategoria}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

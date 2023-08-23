@@ -4,7 +4,6 @@ import com.Loom.domain.Categoria;
 import java.util.List;
 
 public interface CategoriaService {
-    
     // Obtiene una lista de categorías con opción de filtrar por activos
     public List<Categoria> getCategorias(boolean activos);
     

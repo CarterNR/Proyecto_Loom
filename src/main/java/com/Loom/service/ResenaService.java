@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface ResenaService {
     
-    // Obtiene una lista de resenas
-    public List<Resena> getResenas();
+    // Obtiene una lista de resenas con opción de filtrar por activos
+    public List<Resena> getResenas(boolean activos);
     
      // Obtiene un resena a partir de su objeto resena
     public Resena getResena(Resena resena);
@@ -24,11 +24,4 @@ public interface ResenaService {
     
     // Elimina un resena basado en su objeto resena
     public void delete(Resena resena);
-    /*
-    // Ejecuta consulta JPQL personalizada para buscar resenas por rango de calificacion
-    public List<Resena> metodoJPQL(int calificacionInf, int calificacionSup);
-    
-    // Ejecuta consulta nativa personalizada para buscar resenas por rango de calificacion
-    public List<Resena> metodoNativo(int calificacionInf, int calificacionSup);*/
 }
-

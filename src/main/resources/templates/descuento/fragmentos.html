@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Loom</title>
+    </head>
+    <body>
+        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container" sec:autorizar="hasRole('ROLE_ADMIN')">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarDescuento">
+                            <i class="fas fa-plus"></i> [[#{descuento.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2 Fragmento para agregar descuento, es la ventana modal -->
+        <section th:fragment="agregarDescuento">
+            <div id="agregarDescuento" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{descuento.agregar}]]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/descuento/guardar}" th:object="${descuento}"
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="descuento">[[#{descuento.descuento}]]</label>
+                                    <input type="text" class="from-control" name="descuento" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion">[[#{descuento.descripcion}]]</label>
+                                    <input type="text" class="from-control" name="descripcion" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechai">[[#{descuento.fechai}]]</label>
+                                    <input type="date" class="form-control" name="fechai" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaf">[[#{descuento.fechaf}]]</label>
+                                    <input type="date" class="form-control" name="fechaf" required="true"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad descuento -->
+        <section th:fragment="listadoDescuentos" id="descuentos">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9"> 
+                        <tr th:each="descuento, contador : ${descuentos}">
+                            <div class="card text-center" style="left: 50%; transform: translateX(-32.5%); background-color: #90E1D9;">
+                                <div class="card-header" style="color: white; font-size: 20px"><b>Descuento</b></div>
+                                <div class="card-body">
+
+                                    <td sec:autorizar="hasRole('ROLE_ADMIN')">
+                                        <div style="color: #90E1D9">a</div>
+                                        <p class="card-text" style="left: 50%; transform: translateX(-6.8%); color: white; line-height: 0.5; font-size: 25px"><b>Hasta</b></p>    
+                                        <p class="card-title" style="color: white; font-size: 100px; line-height: 0.5;"><b>[[${descuento.descuento}]]%</b></p>
+                                        <p class="card-text" style="color: white; line-height: 3; font-size: 18px"><b>[[${descuento.Descripcion}]]</b></p>
+                                        <td sec:autorizar="hasRole('ROLE_ADMIN')">
+                                            <td> 
+                                                <a th:href="@{/descuento/eliminar/}+${descuento.idDescuento}"
+                                                   class="btn btn-danger" style="background-color: white; color: black; border-color: white;">
+                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                                            </td>
+                                            <td> 
+                                                <a th:href="@{/descuento/modificar/}+${descuento.idDescuento}"
+                                                   class="btn btn-success" style="background-color: white; color: black; border-color: white;">
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a>
+                                            </td>
+                                        </td>
+                                </div>
+                                <div class="card-footer text-body-secondary" style="color: white">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <b class="text-center">[[#{descuento.fechai}]]</b>
+                                            <p class="card-text">[[${descuento.fechai}]]</p>
+                                        </div>
+                                        <div class="col-md-7 text-right"> <!-- Cambiamos de col-md-9 a col-md-6 y añadimos text-right -->
+                                            <!-- Espacio vacío antes de la fecha de finalización -->
+                                        </div>
+                                        <div class="col-md-3 text-right"> <!-- Nueva columna para la fecha de finalización -->
+                                            <b>[[#{descuento.fechaf}]]</b>
+                                            <p class="card-text">[[${descuento.fechaf}]]</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div style="color: white">a</div>
+                            <div style="color: white">a</div>
+                        </tr>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="editarDescuento">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/descuento/guardar}" 
+                          th:object="${descuento}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idDescuento" th:field="*{idDescuento}"/>
+                        <section th:replace="~{descuento/fragmentos :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="descuento">[[#{descuento.descuento}]]</label>
+                                                    <input type="text" class="from-control" name="descuento" th:field="*{descuento}" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="descripcion">[[#{descuento.descripcion}]]</label>
+                                                    <input type="text" class="from-control" name="descripcion" th:field="*{descripcion}" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="fechai">[[#{descuento.fechai}]]</label>
+                                                    <input type="date" class="form-control" name="fechai" th:field="*{fechai}" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="fechaf">[[#{descuento.fechaf}]]</label>
+                                                    <input type="date" class="form-control" name="fechaf" th:field="*{fechaf}" required="true"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/descuento/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/descuento/eliminar/}+${descuento.idDescuento}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -4,11 +4,7 @@
  */
 package com.Loom.service.impl;
 
-import java.util.List;
-import java.util.Objects;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import static com.Loom.service.ItemService.listaItems;
 import org.springframework.stereotype.Service;
 import com.Loom.dao.FacturaDao;
 import com.Loom.dao.ProductoDao;
@@ -20,6 +16,12 @@ import com.Loom.domain.Usuario;
 import com.Loom.domain.Venta;
 import com.Loom.service.ItemService;
 import com.Loom.service.UsuarioService;
+import java.util.List;
+import java.util.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -27,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> gets() {
         return listaItems;
-    }
+}
 
     //Se usa en el addCarrito... agrega un elemento
     @Override

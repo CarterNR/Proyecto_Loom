@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RequestMapping("/categoria")
 public class CategoriaController {
-    
     @Autowired
     private CategoriaService categoriaService;
 

@@ -4,11 +4,16 @@
  */
 package com.Loom.service;
 
+import com.Loom.domain.Item;
 import java.util.ArrayList;
 import java.util.List;
 import com.Loom.domain.Item;
 
-public interface ItemService {     
+/**
+ *
+ * @author NIKY
+ */
+public interface ItemService {
     List<Item> listaItems = new ArrayList<>();
     
     public List<Item> gets();
