@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Loom</title>
+    </head>
+    <body>
+        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
+        <section th:fragment="botonesAgregar" class="py-0 mb-4 bg-light"></section>
+
+        <!-- 2 Fragmento para agregar resena, es la ventana modal -->
+        <section th:fragment="agregarResena">
+            <div id="agregarResena" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{resena.agregar}]]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/resena/guardar}" th:object="${resena}"
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <!--<label for="producto">[[#{producto.descripcion}]]</label>
+                                    <select nombre="*{producto.descripcion}" class="form-select" aria-label="Default select example">
+                                        <option th:each="p : ${productos}" th:value="${p.descripcion}" th:text="${p.descripcion}"></option>
+                                    </select>
+                                     se le agregan todas las otras cosas que le faltan de los fragmentos de producto
+                                    <label for="idProducto">[[#{resena.producto.descripcion}]]</label>
+                                    <select name="*{producto.idProducto}" class="from-select" aria-label="Default select example">
+                                        <option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.descripcion}">
+                                        </option> 
+                                    </select> --> 
+                                    <label for="producto">[[#{resena.producto.descripcion}]]</label>
+                                    <select name="*{producto.producto}" class="from-select" aria-label="Default select example">
+                                        <option th:each="p : ${productos}" th:value="${p.producto}" th:text="${p.descripcion}">
+                                        </option> 
+                                    </select>  
+                                </div>
+                                <div class="mb-3">
+                                    <label for="calificacion">[[#{resena.calificacion}]]</label>
+                                    <select nombre="*{resena.calificacion}" class="form-select" aria-label="Default select example">
+                                        <option value="1" text="1">1</option>
+                                        <option value="2" text="2">2</option>
+                                        <option value="3" text="3">3</option>
+                                        <option value="4" text="4">4</option>
+                                        <option value="5" text="5">5</option>
+                                        <option value="6" text="6">6</option>
+                                        <option value="7" text="7">7</option>
+                                        <option value="8" text="8">8</option>
+                                        <option value="9" text="9">9</option>
+                                        <option value="10" text="10">10</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comentario">[[#{resena.comentario}]]</label>
+                                    <textarea class="from-control" name="comentario" rows="3"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad resena -->
+        <section th:fragment="listadoResenas" id="resenas">
+            <div class="container">
+                <div class="row">
+                    <tr th:each="resena, contador : ${resenas}">
+                        <div class="col-sm-6 mb-3 mb-sm-4">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h4>[[${resena.producto.descripcion}]]</h4>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="--bs-btn-bg: #F7F7F7;
+                                                --bs-btn-border-color: #F7F7F7; --bs-btn-color: #AEAEAE; --bs-btn-hover-bg: #E6E6E6; --bs-btn-hover-border-color: #E6E6E6; --bs-btn-hover-color: #black;">
+                                            <h6><b><span style="position: relative; top: 4px;">&#8942;</span></b></h6> <!-- Este es el símbolo de tres puntos verticales -->
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a th:href="@{/resena/eliminar/}+${resena.idResena}" class="dropdown-item">
+                                                    <button class="btn"><i class="fas fa-trash"></i> [[#{accion.eliminar}]]</button>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a th:href="@{/resena/modificar/}+${resena.idResena}" class="dropdown-item">
+                                                    <button class="btn"><i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</button>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#agregarResena">
+                                                    <button class="btn"><i class="fas fa-plus"></i> [[#{resena.agregar}]]</button>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div th:if="${resenas != null and !resenas.empty}">
+                                    <div class="card-body">
+                                        <b><p class="card-text" style="color: #CDCDC9">[[#{resena.comentario}]]</p></b>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="card-text">[[${resena.comentario}]]</p>
+                                            <div class="d-flex align-items-center">
+                                                <b><p class="card-text" style="font-size: 20px; line-height: 24px;">[[${resena.calificacion}]]</p></b>
+                                                <p class="card-text" style="font-size: 30px; line-height: 24px; position: relative; top: -3px; color: #F2F51B">[[#{resena.simbolo}]]</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="text-center p-2" th:if="${resenas == null or resenas.empty}">
+                                    <span>[[#{lista.vacia}]]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="editarResena">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/resena/guardar}" 
+                          th:object="${resena}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idResena" th:field="*{idResena}"/>
+                        <section th:replace="~{resena/fragmentos :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="idProducto">[[#{resena.producto.descripcion}]]</label>
+                                                    <select th:field="*{producto.idProducto}" class="from-select" aria-label="Default select example">
+                                                        <option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.descripcion}">
+                                                        </option> 
+                                                    </select> 
+                                                    <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de producto -->
+
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="calificacion">[[#{resena.calificacion}]]</label>
+                                                    <select th:field="*{calificacion}" class="from-select" aria-label="Default select example">
+                                                        <option th:value="1" th:text="1">1</option>
+                                                        <option th:value="2" th:text="2">2</option>
+                                                        <option th:value="3" th:text="3">3</option>
+                                                        <option th:value="4" th:text="4">4</option>
+                                                        <option th:value="5" th:text="5">5</option>
+                                                        <option th:value="6" th:text="6">6</option>
+                                                        <option th:value="7" th:text="7">7</option>
+                                                        <option th:value="8" th:text="8">8</option>
+                                                        <option th:value="9" th:text="9">9</option>
+                                                        <option th:value="10" th:text="10">10</option>
+                                                    </select> 
+                                                    <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de producto -->
+
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="comentario">[[#{resena.comentario}]]</label>
+                                                    <textarea class="from-control" th:field="*{comentario}" rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        </section>
+
+                        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+                        <section th:fragment="botonesEditar">
+                            <div class="container py-4 mb-4 bg-light">
+                                <div class="row">
+                                    <div class="col-md-4 d-grid">
+                                        <a th:href="@{/resena/listado}" class="btn btn-primary">
+                                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 d-grid">                                
+                                        <a th:href="@{/resena/eliminar/}+${resena.idResena}"
+                                           class="btn btn-danger">
+                                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 d-grid">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        </body>
+                        </html>

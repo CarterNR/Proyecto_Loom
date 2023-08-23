@@ -13,27 +13,7 @@
                 <div class="row row-cols-2" >
                     <div id="resultsBlock"></div></div>
                 <div style="color: white">v</div>
-                  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-                     <div class="carousel-inner">
-                         <div class="carousel-item active" data-bs-interval="10000">
-                             <img src="https://cdn.discordapp.com/attachments/935264591305392151/1141308107457314947/5_3.jpg" class="d-block w-100" alt="...">
-                         </div>
-                         <div class="carousel-item" data-bs-interval="2000">
-                             <img src="https://cdn.discordapp.com/attachments/935264591305392151/1141308107692199997/1a.jpg" class="d-block w-100" alt="...">
-                         </div>
-                         <div class="carousel-item">
-                             <img src="https://cdn.discordapp.com/attachments/935264591305392151/1141308108019339324/3a_3.jpg" class="d-block w-100" alt="...">
-                         </div>
-                     </div>
-                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                         <span class="visually-hidden">Previous</span>
-                     </button>
-                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                         <span class="visually-hidden">Next</span>
-                     </button>
-                 </div>   
+
                 <div class="row row-cols-3" 
                      th:if="${productos != null and !productos.empty}" style="left: 50%; transform: translateX(1%)">
                     <div class="card mx-3 card my-3" th:each="producto : ${productos}" style="width: 18rem;">
@@ -58,8 +38,6 @@
                 <div th:if="${productos == null or productos.empty}">
                     [[#{carrito.no_mostrar}]]</div>
             </div>
-
-
         </section>
 
         <div th:fragment="verCarrito" th:unless="${#lists.isEmpty(listaItems)}">            

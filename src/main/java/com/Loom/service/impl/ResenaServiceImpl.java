@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.Loom.service.impl;
 
 import java.util.List;
@@ -20,7 +16,7 @@ public class ResenaServiceImpl implements ResenaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Resena> getResenas(boolean activos) {
+    public List<Resena> getResenas() {
         var lista = resenaDao.findAll();
         return lista;
     }

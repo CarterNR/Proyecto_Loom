@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Loom</title>
+    </head>
+    <body>
+        <section th:fragment="inicio" class="row justify-content-center">
+            <div> <!-- Agregamos la clase justify-content-center para centrar la columna -->
+                <div class="col-md-9">
+                    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="left: 50%; transform: translateX(-9%)">
+                        <div class="col-md-6"> 
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" data-bs-interval="5000">
+                                    <img src="https://cdn.discordapp.com/attachments/935264591305392151/1141308107457314947/5_3.jpg" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="5000">
+                                    <img src="https://cdn.discordapp.com/attachments/935264591305392151/1141308107692199997/1a.jpg" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="5000">
+                                    <img src="https://cdn.discordapp.com/attachments/935264591305392151/1141308108019339324/3a_3.jpg" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+            <div style="color:white">a</div>
+            <div style="color:white">a</div>
+            <div style="color:white">a</div>
+            <div class="col-md-8">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                [[#{inicio.pregunta1}]]
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                [[#{inicio.respuesta1.1}]]
+                                <div style="color:white">a</div>
+                                [[#{inicio.respuesta1.2}]]
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                [[#{inicio.pregunta2}]]
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                [[#{inicio.respuesta2.1}]]
+                                <div style="color:white">a</div>
+                                [[#{inicio.respuesta2.2}]]
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                [[#{inicio.pregunta3}]]
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                [[#{inicio.respuesta3.1}]]
+                                <div style="color:white">a</div>
+                                [[#{inicio.respuesta3.2}]]
+                                <div style="color:white">a</div>
+                                [[#{inicio.respuesta3.3}]]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>

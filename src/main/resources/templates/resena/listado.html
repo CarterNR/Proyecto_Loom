@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Loom</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section th:replace="~{resena/fragmentos :: botonesAgregar}"/>
+        <section th:replace="~{resena/fragmentos :: agregarResena}"/> 
+        <section th:replace="~{resena/fragmentos :: listadoResenas}"/>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>      
+      
+    </body>
+</html>

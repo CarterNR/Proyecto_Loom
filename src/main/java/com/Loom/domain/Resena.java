@@ -17,7 +17,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="resenas")
+@Table(name="resena")
 public class Resena implements Serializable{
     private static final long serialVersionUID = 1L;
     
@@ -25,18 +25,18 @@ public class Resena implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_resena")
     private Long idResena;
-    private int calificacion;
+    private String calificacion;
     private String comentario;
     
     @ManyToOne
-    @JoinColumn(name="id_producto")
+    @JoinColumn(name="id_producto", updatable = false)
     Producto producto;// producto a la que pertenece el resena
     
     
     public Resena(){
     }
     
-    public Resena(int calificacion, String comentario){
+    public Resena(String calificacion, String comentario){
         this.calificacion = calificacion;
         this.comentario = comentario;
     }

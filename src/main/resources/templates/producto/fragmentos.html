@@ -23,6 +23,8 @@
             </div>
         </section>
 
+
+
         <!-- 2 Fragmento para agregar producto, es la ventana modal -->
         <section th:fragment="agregarProducto">
             <div id="agregarProducto" 
@@ -42,11 +44,10 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="idCategoria">[[#{categoria.descripcion}]]</label>
-                                    <select name="categoria.idCategoria" class="form-select" aria-label="Default select example">
+                                    <select name="*{categoria.idCategoria}" class="form-select" aria-label="Default select example">
                                         <option th:each="c : ${categorias}" th:value="${c.idCategoria}" th:text="${c.descripcion}"></option> 
                                     </select>
-
-                                    <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de categoria -->
+                                    <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de categoria-->
                                 </div>
                                 <div class="mb-3">
                                     <label for="descripcion">[[#{producto.descripcion}]]</label>
