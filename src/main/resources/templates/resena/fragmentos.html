@@ -26,36 +26,25 @@
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <!--<label for="producto">[[#{producto.descripcion}]]</label>
-                                    <select nombre="*{producto.descripcion}" class="form-select" aria-label="Default select example">
-                                        <option th:each="p : ${productos}" th:value="${p.descripcion}" th:text="${p.descripcion}"></option>
-                                    </select>
-                                     se le agregan todas las otras cosas que le faltan de los fragmentos de producto
                                     <label for="idProducto">[[#{resena.producto.descripcion}]]</label>
-                                    <select name="*{producto.idProducto}" class="from-select" aria-label="Default select example">
-                                        <option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.descripcion}">
-                                        </option> 
-                                    </select> --> 
-                                    <label for="producto">[[#{resena.producto.descripcion}]]</label>
-                                    <select name="*{producto.producto}" class="from-select" aria-label="Default select example">
-                                        <option th:each="p : ${productos}" th:value="${p.producto}" th:text="${p.descripcion}">
-                                        </option> 
-                                    </select>  
+                                    <select name="producto.idProducto" class="form-select" aria-label="Default select example">
+                                        <option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.descripcion}"></option> 
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="calificacion">[[#{resena.calificacion}]]</label>
-                                    <select nombre="*{resena.calificacion}" class="form-select" aria-label="Default select example">
-                                        <option value="1" text="1">1</option>
-                                        <option value="2" text="2">2</option>
-                                        <option value="3" text="3">3</option>
-                                        <option value="4" text="4">4</option>
-                                        <option value="5" text="5">5</option>
-                                        <option value="6" text="6">6</option>
-                                        <option value="7" text="7">7</option>
-                                        <option value="8" text="8">8</option>
-                                        <option value="9" text="9">9</option>
-                                        <option value="10" text="10">10</option>
-                                    </select>
+                                    <select name="calificacion" class="from-select" aria-label="Default select example">
+                                        <option th:value="1" th:text="1">1</option>
+                                        <option th:value="2" th:text="2">2</option>
+                                        <option th:value="3" th:text="3">3</option>
+                                        <option th:value="4" th:text="4">4</option>
+                                        <option th:value="5" th:text="5">5</option>
+                                        <option th:value="6" th:text="6">6</option>
+                                        <option th:value="7" th:text="7">7</option>
+                                        <option th:value="8" th:text="8">8</option>
+                                        <option th:value="9" th:text="9">9</option>
+                                        <option th:value="10" th:text="10">10</option>
+                                    </select> 
                                 </div>
                                 <div class="mb-3">
                                     <label for="comentario">[[#{resena.comentario}]]</label>
@@ -153,15 +142,6 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="idProducto">[[#{resena.producto.descripcion}]]</label>
-                                                    <select th:field="*{producto.idProducto}" class="from-select" aria-label="Default select example">
-                                                        <option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.descripcion}">
-                                                        </option> 
-                                                    </select> 
-                                                    <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de producto -->
-
-                                                </div>
-                                                <div class="mb-3">
                                                     <label for="calificacion">[[#{resena.calificacion}]]</label>
                                                     <select th:field="*{calificacion}" class="from-select" aria-label="Default select example">
                                                         <option th:value="1" th:text="1">1</option>
@@ -175,8 +155,6 @@
                                                         <option th:value="9" th:text="9">9</option>
                                                         <option th:value="10" th:text="10">10</option>
                                                     </select> 
-                                                    <!-- se le agregan todas las otras cosas que le faltan de los fragmentos de producto -->
-
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="comentario">[[#{resena.comentario}]]</label>

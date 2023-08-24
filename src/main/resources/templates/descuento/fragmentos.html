@@ -8,9 +8,9 @@
     <body>
         <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
-            <div class="container" sec:autorizar="hasRole('ROLE_ADMIN')">
+             <div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
                 <div class="row">
-                    <div class="col-md-3">   
+                    <div class="col-md-3">  
                         <button 
                             type="button" 
                             class="btn btn-primary btn-block" 
@@ -20,9 +20,8 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>    
         </section>
-
         <!-- 2 Fragmento para agregar descuento, es la ventana modal -->
         <section th:fragment="agregarDescuento">
             <div id="agregarDescuento" 
@@ -77,23 +76,21 @@
                                 <div class="card-header" style="color: white; font-size: 20px"><b>[[#{descuento.DescuentoPA}]]</b></div>
                                 <div class="card-body">
 
-                                    <td sec:autorizar="hasRole('ROLE_ADMIN')">
-                                        <div style="color: #90E1D9">a</div>
-                                        <p class="card-text" style="left: 50%; transform: translateX(-6.8%); color: white; line-height: 0.5; font-size: 25px"><b>Hasta</b></p>    
-                                        <p class="card-title" style="color: white; font-size: 100px; line-height: 0.5;"><b>[[${descuento.descuento}]]%</b></p>
-                                        <p class="card-text" style="color: white; line-height: 3; font-size: 18px"><b>[[${descuento.Descripcion}]]</b></p>
-                                        <td sec:autorizar="hasRole('ROLE_ADMIN')">
-                                            <td> 
-                                                <a th:href="@{/descuento/eliminar/}+${descuento.idDescuento}"
-                                                   class="btn btn-danger" style="background-color: white; color: black; border-color: white;">
-                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                            </td>
-                                            <td> 
-                                                <a th:href="@{/descuento/modificar/}+${descuento.idDescuento}"
-                                                   class="btn btn-success" style="background-color: white; color: black; border-color: white;">
-                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a>
-                                            </td>
-                                        </td>
+                                    <div style="color: #90E1D9">a</div>
+                                    <p class="card-text" style="left: 50%; transform: translateX(-6.8%); color: white; line-height: 0.5; font-size: 25px"><b>Hasta</b></p>    
+                                    <p class="card-title" style="color: white; font-size: 100px; line-height: 0.5;"><b>[[${descuento.descuento}]]%</b></p>
+                                    <p class="card-text" style="color: white; line-height: 3; font-size: 18px"><b>[[${descuento.Descripcion}]]</b></p>
+
+                                    <td sec:authorize="hasRole('ROLE_ADMIN')">  
+                                        <a th:href="@{/descuento/eliminar/}+${descuento.idDescuento}"
+                                           class="btn btn-danger" style="background-color: white; color: black; border-color: white;">
+                                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+
+                                        <a th:href="@{/descuento/modificar/}+${descuento.idDescuento}"
+                                           class="btn btn-success" style="background-color: white; color: black; border-color: white;">
+                                            <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a>
+                                    </td>
+
                                 </div>
                                 <div class="card-footer text-body-secondary" style="color: white">
                                     <div class="row">

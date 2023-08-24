@@ -17,32 +17,49 @@ import com.Loom.service.ProductoService;
 
 @Controller
 public class CarritoController {
+
     @Autowired
     private ItemService itemService;
     @Autowired
     private ProductoService productoService;
-    
-    @GetMapping("/") 
+
+    @GetMapping("/")
     public String index(Model model) {
-    var productos = productoService.getProductos(false);
-    model.addAttribute("productos",productos);
-    return "index";
+        var productos = productoService.getProductos(false);
+        model.addAttribute("productos", productos);
+        return "index";
     }
 
     //Para ver el carrito
     @GetMapping("/carrito/listado")
     public String inicio(Model model) {
+       
         var items = itemService.gets();
         model.addAttribute("items", items);
         var carritoTotalVenta = 0;
         for (Item i : items) {
             carritoTotalVenta += (i.getCantidad() * i.getPrecio());
         }
-        model.addAttribute("carritoTotal", 
+        model.addAttribute("carritoTotal",
                 carritoTotalVenta);
         return "/carrito/listado";
-    }    
-   
+    }
+    
+    @GetMapping("/carrito/listado2")
+    public String inicio2(Model model) {
+        var productos = productoService.getProductos(false);
+        model.addAttribute("productos", productos);
+        var items = itemService.gets();
+        model.addAttribute("items", items);
+        var carritoTotalVenta = 0;
+        for (Item i : items) {
+            carritoTotalVenta += (i.getCantidad() * i.getPrecio());
+        }
+        model.addAttribute("carritoTotal",
+                carritoTotalVenta);
+        return "/carrito/listado2";
+    }
+
     //Para Agregar un producto al carrito
     @GetMapping("/carrito/agregar/{idProducto}")
     public ModelAndView agregarItem(Model model, Item item) {

@@ -57,12 +57,4 @@ public class CategoriaController {
         categoriaService.delete(categoria);
         return "redirect:/categoria/listado";
     }
-
-    @GetMapping("/modificar/{idCategoria}")
-    public String categoriaModificar(Categoria categoria, Model model) {
-        // Obtiene una categoría y la agrega al modelo para el formulario de modificación
-        categoria = categoriaService.getCategoria(categoria);
-        model.addAttribute("categoria", categoria);
-        return "/categoria/modifica";// Devuelve la vista de formulario de modificación
-    }
 }

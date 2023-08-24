@@ -25,7 +25,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 public class ProjectConfig implements WebMvcConfigurer {
 
     // Configuración para manejar diferentes idiomas en el proyecto
-
     // Configuración para cambiar el idioma en cada sesión
     @Bean
     public SessionLocaleResolver localeResolver() {
@@ -71,8 +70,6 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
 
-    
-
     // Configura detalles de usuarios (aquí usando usuarios en memoria)
     /*@Bean
     public UserDetailsService users() {
@@ -94,7 +91,6 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .build();
         return new InMemoryUserDetailsManager(user, sales, admin);
     }*/
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -110,14 +106,11 @@ public class ProjectConfig implements WebMvcConfigurer {
         http
                 .authorizeHttpRequests((request) -> request // Configura quiénes pueden acceder a diferentes partes del proyecto
                 .requestMatchers("/", "/index", "/errores/**",
-                        "/carrito/**", "/pruebas/**", "/reportes/**",
-                        "/registro/**", "/js/**", "/webjars/**","/resena/nuevo**", "/resena/guardar",
-                        "/resena/modificar/**", "/resena/eliminar/**",
-                        "/resena/listado"
+                        "/pruebas/**",
+                        "/registro/**", "/js/**", "/webjars/**",
+                        "/resena/listado", "/evento/listado", "/descuento/listado"
                 ).permitAll()
                 .requestMatchers(
-                        "/evento/listado",
-                        "/descuento/listado",
                         "/producto/nuevo**", "/producto/guardar",
                         "/producto/modificar/**", "/producto/eliminar/**",
                         "/categoria/nuevo", "/categoria/guardar",
@@ -128,16 +121,18 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/evento/modificar/**", "/evento/eliminar/**",
                         "/descuento/nuevo", "/descuento/guardar",
                         "/descuento/modificar/**", "/descuento/eliminar/**",
-                        "/reportes/**", "/inicio"
+                        "/reportes/**", "/inicio", "/reportes/principal"
                 ).hasRole("ADMIN")
                 .requestMatchers(
                         "/producto/listado",
                         "/categoria/listado",
                         "/usuario/listado"
-                ).hasAnyRole("ADMIN", "VENDEDOR")
+                ).hasRole("VENDEDOR")
                 .requestMatchers("/facturar/carrito",
-                        "/producto/listado")
-                .hasRole("USER")
+                        "/carrito/**",
+                        "/resena/nuevo**", "/resena/guardar",
+                        "/resena/modificar/**", "/resena/eliminar/**"
+                ).hasRole("USER")
                 )
                 .formLogin((form) -> form // Configura cómo se ve y funciona la página de inicio de sesión
                 .loginPage("/login").permitAll())

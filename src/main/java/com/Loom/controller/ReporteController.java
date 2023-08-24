@@ -42,39 +42,10 @@ public class ReporteController {
         return "/reportes/principal";// Devuelve la vista de reporte principal
     }
     
-    @GetMapping("/usuarios")
-    public ResponseEntity<Resource> reporteClientes(@RequestParam String tipo) throws IOException{
-        // Genera el reporte de usuarios y devuelve la respuesta
-        var reporte = "usuarios";
-        return reporteService.generateReporte(reporte, null, tipo);
-    }
-    
     @GetMapping("/ventas")
     public ResponseEntity<Resource> reporteVentas(@RequestParam String tipo) throws IOException{
         // Genera el reporte de ventas y devuelve la respuesta
         var reporte = "ventas";
-        return reporteService.generateReporte(reporte, null, tipo);
-    }
-    
-    @GetMapping("/ventasTotales")
-    public ResponseEntity<Resource> reporteClientes(@RequestParam String fechaInicio, @RequestParam String fechaFin,
-    @RequestParam String tipo) throws IOException{
-        Map<String, Object> parametros = new HashMap();
-        parametros.put("fechaInicio", fechaInicio);
-        parametros.put("fechaFin", fechaFin);
-        var reporte = "ventasTotales";
-        return reporteService.generateReporte(reporte, parametros, tipo);
-    }
-    
-    @GetMapping("/Categorias")
-    public ResponseEntity<Resource> reporteCategorias(@RequestParam String tipo) throws IOException{
-        var reporte = "Categorias";
-        return reporteService.generateReporte(reporte, null, tipo);
-    }
-    
-    @GetMapping("/facturas")
-    public ResponseEntity<Resource> reporteFacturas(@RequestParam String tipo) throws IOException{
-        var reporte = "facturas";
         return reporteService.generateReporte(reporte, null, tipo);
     }
 }

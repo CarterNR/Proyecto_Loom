@@ -1,14 +1,16 @@
 package com.Loom.controller;
 
-
 import com.Loom.domain.Producto;
 import com.Loom.service.CategoriaService;
 import com.Loom.service.ProductoService;
+import com.Loom.service.impl.FirebaseStorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -24,6 +26,8 @@ public class ProductoController {
         // Obtiene la lista de productos y la agrega al modelo para la vista
         var productos = productoService.getProductos(false);
         model.addAttribute("productos", productos);
+        var categorias = categoriaService.getCategorias(false);
+        model.addAttribute("categorias", categorias);
 
         return "/producto/listado";// Devuelve la vista de listado de productos
     }
@@ -32,14 +36,26 @@ public class ProductoController {
     @GetMapping("/producto/nuevo")
     public String nuevoProducto(Producto producto, Model model) {
 // Prepara la vista del formulario para crear un nuevo producto
-         var categorias = categoriaService.getCategorias(false);
+        var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
         return "/producto/listado";
     }
 
+    @Autowired
+    private FirebaseStorageServiceImpl firebaseStorageService;
+    
     @PostMapping("/producto/guardar")
-    public String guardarProducto(Producto producto) {
-// Guarda un producto y redirige a la lista de productos
+    public String guardarProducto(Producto producto,
+            @RequestParam("imagenFile") MultipartFile imagenFile) {  
+        // Guarda la categoría y carga una imagen si se proporciona
+        if (!imagenFile.isEmpty()) {
+            productoService.save(producto);
+            producto.setRutaImagen(
+                    firebaseStorageService.cargaImagen(
+                            imagenFile, 
+                            "producto", 
+                            producto.getIdProducto()));
+        }
         productoService.save(producto);
         return "redirect:/producto/listado";
     }

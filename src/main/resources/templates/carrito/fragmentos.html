@@ -7,7 +7,6 @@
     </head>
     <body>
 
-
         <section th:fragment="listadoProductos" id="productos">
             <div class="container">
                 <div class="row row-cols-2" >
@@ -39,6 +38,7 @@
                     [[#{carrito.no_mostrar}]]</div>
             </div>
         </section>
+        
 
         <div th:fragment="verCarrito" th:unless="${#lists.isEmpty(listaItems)}">            
             <form action="/carrito/listado">
@@ -104,7 +104,7 @@
                         </div>
                         <div class="card text-center bg-success text-white mb-3">
                             <div class="card-body">
-                                <a th:href="@{/}"
+                                <a th:href="@{/carrito/listado2}"
                                    class="btn btn-success">
                                     <i class='fas fa-reply'></i> [[#{carrito.seguirComprando}]]
                                 </a>

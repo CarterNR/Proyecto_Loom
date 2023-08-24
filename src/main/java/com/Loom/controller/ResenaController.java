@@ -27,7 +27,8 @@ public class ResenaController {
         // Obtiene la lista de resenas y la agrega al modelo para la vista
         var resenas = resenaService.getResenas();
         model.addAttribute("resenas", resenas);
-
+        var productos = productoService.getProductos(false);
+        model.addAttribute("productos", productos);
         return "/resena/listado";// Devuelve la vista de listado de resenas
     }
     

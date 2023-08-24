@@ -8,7 +8,7 @@
     <body>
         <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
-            <div class="container" sec:autorizar="hasRole('ROLE_ADMIN')">
+            <div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
                 <div class="row">
                     <div class="col-md-3">   
                         <button 
@@ -80,39 +80,27 @@
                             <div class="card mb-3" style="left: 50%; transform: translateX(-32.5%)">
                                 <img th:src="@{${evento.rutaImagen}}" class="img-fluid rounded-start" alt="..."/>
                                 <div class="card-body">
-                                    
-                                   
-                                    
                                     <h5 class="card-title"><b>[[${evento.nombre}]]</b></h5>
                                     <div style="color: white">a</div>
                                     <b class="text-center">[[#{evento.fecha}]]</b>
                                     <p class="card-text">[[${evento.fecha}]]</p>
-                                    
+
                                     <b class="text-center">[[#{evento.lugar}]]</b>
                                     <p class="card-text">[[${evento.lugar}]]</p>
-                                    
+
                                     <b class="text-center">[[#{evento.descripcion}]]</b>
                                     <p class="card-text">[[${evento.descripcion}]]</p>
+                                    <div style="color: white">a</div>
+                                    <td sec:authorize="hasRole('ROLE_ADMIN')">  
+                                        <a th:href="@{/evento/eliminar/}+${evento.idEvento}"
+                                           class="btn btn-danger">
+                                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
 
-
-                                    <td sec:autorizar="hasRole('ROLE_ADMIN')">
-                                        <div style="color: white">a</div>
-                                        <div style="color: white">a</div>
-                                        <td> 
-                                            <a th:href="@{/evento/eliminar/}+${evento.idEvento}"
-                                               class="btn btn-danger">
-                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                        </td>
-                                        <td> 
-                                            <a th:href="@{/evento/modificar/}+${evento.idEvento}"
-                                               class="btn btn-success">
-                                                <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a>
-                                        </td>
+                                        <a th:href="@{/evento/modificar/}+${evento.idEvento}"
+                                           class="btn btn-success">
+                                            <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a>
                                     </td>
-
                                 </div>
-
-
                             </div>
                         </tr>
                     </div>
@@ -175,27 +163,29 @@
         </section>
 
         <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
-        <section th:fragment="botonesEditar">
-            <div class="container py-4 mb-4 bg-light">
-                <div class="row">
-                    <div class="col-md-4 d-grid">
-                        <a th:href="@{/evento/listado}" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
-                        </a>
-                    </div>
-                    <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/evento/eliminar/}+${evento.idEvento}"
-                           class="btn btn-danger">
-                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
-                        </a>
-                    </div>
-                    <div class="col-md-4 d-grid">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
-                        </button>
+        <td sec:authorize="hasRole('ROLE_ADMIN')"> 
+            <section th:fragment="botonesEditar">
+                <div class="container py-4 mb-4 bg-light">
+                    <div class="row">
+                        <div class="col-md-4 d-grid">
+                            <a th:href="@{/evento/listado}" class="btn btn-primary">
+                                <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                            </a>
+                        </div>
+                        <div class="col-md-4 d-grid">                                
+                            <a th:href="@{/evento/eliminar/}+${evento.idEvento}"
+                               class="btn btn-danger">
+                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                            </a>
+                        </div>
+                        <div class="col-md-4 d-grid">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </td>
     </body>
 </html>
